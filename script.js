@@ -97,7 +97,8 @@
         const startBtn = document.getElementById('startBtn');
         const levelSelect = document.getElementById('levelSelect');
         
-        let highscore = window.phpHighscore || 0;
+        //let highscore = window.phpHighscore || 0;
+        let highscore = 0;
         let currentLevelConfig = LEVEL_CONFIG.medium;
         
         // Game Variables
