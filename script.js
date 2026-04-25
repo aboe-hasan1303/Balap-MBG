@@ -816,12 +816,18 @@
     for (let life of lifePowerups) drawLifePowerup(life.x, life.y, life.size);
     
     for (let enemy of enemies) {
-        drawCharacter(enemy.image, enemy.x, enemy.y, enemy.width, enemy.height, false, enemy.type);
-        ctx.font = 'bold 9px Arial';
-        ctx.fillStyle = '#fff';
-        ctx.shadowBlur = 2;
-        ctx.fillText(enemy.type.name, enemy.x + 3, enemy.y - 3);
-    }
+    drawCharacter(enemy.image, enemy.x, enemy.y, enemy.width, enemy.height, false, enemy.type);
+    ctx.font = `bold ${Math.max(9, enemy.width * 0.12)}px Arial`;
+    ctx.fillStyle = '#fff';
+    ctx.shadowBlur = 2;
+    
+    // Hitung posisi teks agar di tengah-tengah musuh
+    const textWidth = ctx.measureText(enemy.type.name).width;
+    const textX = enemy.x + (enemy.width / 2) - (textWidth / 2);
+    const textY = enemy.y - 5;
+    
+    ctx.fillText(enemy.type.name, textX, textY);
+}
     
     const showAccident = (accidentDisplayTimer > 0) && !isRespawning;
     if (showAccident) {
