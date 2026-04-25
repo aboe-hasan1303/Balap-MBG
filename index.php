@@ -52,12 +52,12 @@
 </div>
 
 <script src="script.js"></script>
-<?php
-session_start();
-$highscore = $_SESSION['highscore'] ?? 0;
-?>
+
 <script>
-    window.phpHighscore = <?php echo $highscore; ?>;
+    // Ganti PHP session → localStorage
+    let highscore = localStorage.getItem("highscore") || 0;
+    window.phpHighscore = parseInt(highscore);
 </script>
+
 </body>
 </html>
