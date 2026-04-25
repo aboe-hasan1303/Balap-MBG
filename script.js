@@ -295,7 +295,7 @@
                     speedBonus: 1, 
                     points: 15,
                     customWidth: 80,
-                    customHeight: 50
+                    customHeight: 120
                 },
                 { 
                     name: 'POLANTAS', 
