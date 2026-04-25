@@ -805,71 +805,105 @@
             frameCount++;
             roadOffset = (roadOffset + speed) % 100;
         }
-        
+
+        //draw
         function draw() {
-            if (!canvasWidth || !canvasHeight) return;
-            drawRoad();
-            
-            for (let obs of obstacles) drawObstacle(obs.image, obs.x, obs.y, obs.width, obs.height);
-            for (let power of powerups) drawShieldPowerup(power.x, power.y, power.size);
-            for (let life of lifePowerups) drawLifePowerup(life.x, life.y, life.size);
-            
-            for (let enemy of enemies) {
-                drawCharacter(enemy.image, enemy.x, enemy.y, enemy.width, enemy.height, false, enemy.type);
-                ctx.font = 'bold 9px Arial';
-                ctx.fillStyle = '#fff';
-                ctx.shadowBlur = 2;
-                ctx.fillText(enemy.type.name, enemy.x + 3, enemy.y - 3);
-            }
-            
-            const showAccident = (accidentDisplayTimer > 0) && !isRespawning;
-            if (showAccident) {
-                drawCharacter(player.image, lastAccidentX, lastAccidentY, player.width, player.height, true, null, true);
-            } else {
-                drawCharacter(player.image, player.x, player.y, player.width, player.height, true);
-            }
-            
-            drawExplosion();
-            
-            if (isRespawning) {
-                ctx.font = `bold ${Math.max(18, canvasWidth * 0.04)}px Arial`;
-                ctx.fillStyle = '#ffaa00';
-                ctx.shadowBlur = 8;
-                ctx.fillText('💔 RESPAWN...', canvasWidth / 2 - 70, canvasHeight / 2);
-            }
-            
-            if (invincibleFrames > 0 && !isRespawning && !showAccident) {
-                ctx.font = `bold ${Math.max(12, canvasWidth * 0.02)}px Arial`;
-                ctx.fillStyle = '#aaffff';
-                ctx.fillText('✨ INVINCIBLE ✨', canvasWidth / 2 - 55, 50);
-            }
-            
-            if (speed > 10 && gameRunning && !isPaused && !isRespawning) {
-                for (let i = 0; i < 3; i++) {
-                    ctx.fillStyle = `rgba(255, 100, 0, ${Math.random() * 0.5})`;
-                    ctx.fillRect(player.x - 10 - Math.random() * 20, player.y + Math.random() * player.height, 3, 6);
-                }
-            }
-            
-            if (isPaused && gameRunning) {
-                ctx.font = `bold ${Math.max(20, canvasWidth * 0.05)}px Arial`;
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText('⏸️ PAUSED', canvasWidth / 2 - 70, canvasHeight / 2);
-            }
-            
-            ctx.font = `bold ${Math.max(12, canvasWidth * 0.025)}px "Segoe UI"`;
-            ctx.fillStyle = '#FFD700';
-            ctx.fillText(`⚡ ${Math.floor(speed * 10) / 10}`, canvasWidth - 55, 40);
-            ctx.font = `bold ${Math.max(10, canvasWidth * 0.02)}px Arial`;
-            ctx.fillStyle = '#aaa';
-            ctx.fillText(`${currentLevelConfig.name}`, canvasWidth - 55, 65);
-            
-            if (shieldActive && shieldRemainingTime <= 5 && shieldRemainingTime > 0 && !isRespawning) {
-                ctx.font = `bold ${Math.max(14, canvasWidth * 0.03)}px Arial`;
-                ctx.fillStyle = '#ff4444';
-                ctx.fillText('⚠️ SHIELD LOW! ⚠️', canvasWidth / 2 - 80, 70);
-            }
+    if (!canvasWidth || !canvasHeight) return;
+    drawRoad();
+    
+    for (let obs of obstacles) drawObstacle(obs.image, obs.x, obs.y, obs.width, obs.height);
+    for (let power of powerups) drawShieldPowerup(power.x, power.y, power.size);
+    for (let life of lifePowerups) drawLifePowerup(life.x, life.y, life.size);
+    
+    for (let enemy of enemies) {
+        drawCharacter(enemy.image, enemy.x, enemy.y, enemy.width, enemy.height, false, enemy.type);
+        ctx.font = 'bold 9px Arial';
+        ctx.fillStyle = '#fff';
+        ctx.shadowBlur = 2;
+        ctx.fillText(enemy.type.name, enemy.x + 3, enemy.y - 3);
+    }
+    
+    const showAccident = (accidentDisplayTimer > 0) && !isRespawning;
+    if (showAccident) {
+        drawCharacter(player.image, lastAccidentX, lastAccidentY, player.width, player.height, true, null, true);
+    } else {
+        drawCharacter(player.image, player.x, player.y, player.width, player.height, true);
+    }
+    
+    drawExplosion();
+    
+    if (isRespawning) {
+        ctx.font = `bold ${Math.max(18, canvasWidth * 0.04)}px Arial`;
+        ctx.fillStyle = '#ffaa00';
+        ctx.shadowBlur = 8;
+        ctx.fillText('💔 RESPAWN...', canvasWidth / 2 - 70, canvasHeight / 2);
+    }
+    
+    if (invincibleFrames > 0 && !isRespawning && !showAccident) {
+        ctx.font = `bold ${Math.max(12, canvasWidth * 0.02)}px Arial`;
+        ctx.fillStyle = '#aaffff';
+        ctx.fillText('✨ INVINCIBLE ✨', canvasWidth / 2 - 55, 50);
+    }
+    
+    if (speed > 10 && gameRunning && !isPaused && !isRespawning) {
+        for (let i = 0; i < 3; i++) {
+            ctx.fillStyle = `rgba(255, 100, 0, ${Math.random() * 0.5})`;
+            ctx.fillRect(player.x - 10 - Math.random() * 20, player.y + Math.random() * player.height, 3, 6);
         }
+    }
+    
+    if (isPaused && gameRunning) {
+        ctx.font = `bold ${Math.max(20, canvasWidth * 0.05)}px Arial`;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText('⏸️ PAUSED', canvasWidth / 2 - 70, canvasHeight / 2);
+    }
+    
+    // ========== SPEED & LEVEL DI POJOK KANAN ATAS ==========
+    ctx.font = `bold ${Math.max(12, canvasWidth * 0.025)}px "Segoe UI"`;
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText(`⚡ ${Math.floor(speed * 10) / 10}`, canvasWidth - 55, 40);
+    ctx.font = `bold ${Math.max(10, canvasWidth * 0.02)}px Arial`;
+    ctx.fillStyle = '#aaa';
+    ctx.fillText(`${currentLevelConfig.name}`, canvasWidth - 55, 65);
+    
+    if (shieldActive && shieldRemainingTime <= 5 && shieldRemainingTime > 0 && !isRespawning) {
+        ctx.font = `bold ${Math.max(14, canvasWidth * 0.03)}px Arial`;
+        ctx.fillStyle = '#ff4444';
+        ctx.fillText('⚠️ SHIELD LOW! ⚠️', canvasWidth / 2 - 80, 70);
+    }
+    
+    // ========== HIGHSCORE BOARD TRANSPARAN DI DALAM CANVAS ==========
+    const highscoreValue = localStorage.getItem('highscore') ? parseInt(localStorage.getItem('highscore')) : 0;
+    
+    ctx.save();
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 0.88;
+    
+    // Background transparan (pojok kiri atas)
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+    ctx.beginPath();
+    ctx.roundRect(8, 8, 78, 36, 6);
+    ctx.fill();
+    
+    // Border tipis
+    ctx.strokeStyle = 'rgba(255, 215, 0, 0.5)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(8, 8, 78, 36, 6);
+    ctx.stroke();
+    
+    // Teks "HIGHSCORE"
+    ctx.font = `bold ${Math.max(8, canvasWidth * 0.016)}px "Segoe UI"`;
+    ctx.fillStyle = '#ffd700';
+    ctx.fillText('🏆 HIGHSCORE', 14, 22);
+    
+    // Nilai highscore
+    ctx.font = `bold ${Math.max(14, canvasWidth * 0.022)}px "Segoe UI"`;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(highscoreValue, 14 + 40, 38);
+    
+    ctx.restore();
+}
         
         function gameLoop() {
             update();
