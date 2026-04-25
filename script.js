@@ -96,9 +96,9 @@
         const pauseBtn = document.getElementById('pauseBtn');
         const startBtn = document.getElementById('startBtn');
         const levelSelect = document.getElementById('levelSelect');
-        
-        //let highscore = window.phpHighscore || 0;
-        let highscore = 0;
+      
+        // Highscore dengan localStorage (tetap tersimpan)
+        let highscore = localStorage.getItem('highscore') ? parseInt(localStorage.getItem('highscore')) : 0;
         let currentLevelConfig = LEVEL_CONFIG.medium;
         
         // Game Variables
@@ -169,7 +169,10 @@
                 if (speed >= 12) speedElem.classList.add('speed-warning');
                 else speedElem.classList.remove('speed-warning');
             }
-            if (score > highscore) highscore = score;
+            if (score > highscore) {
+    highscore = score;
+    localStorage.setItem('highscore', highscore);  // simpan ke localStorage
+
         }
         
         function updateShieldUI() {
