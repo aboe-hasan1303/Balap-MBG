@@ -284,7 +284,7 @@
                     agresif: true, 
                     speedBonus: 1.25, 
                     points: 20,
-                    customWidth: 80,
+                    customWidth: 100,
                     customHeight: 75
                 },
                 { 
@@ -294,8 +294,8 @@
                     agresif: false, 
                     speedBonus: 1, 
                     points: 15,
-                    customWidth: 120,
-                    customHeight: 100
+                    customWidth: 80,
+                    customHeight: 50
                 },
                 { 
                     name: 'POLANTAS', 
