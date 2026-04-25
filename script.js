@@ -212,7 +212,7 @@
         
         function resizeCanvas() {
             const dashboard = document.querySelector('.dashboard');
-            const dashboardHeight = dashboard ? dashboard.offsetHeight : 60;
+            const dashboardHeight = dashboard ? dashboard.offsetHeight : 100;
             canvasWidth = window.innerWidth;
             canvasHeight = window.innerHeight - dashboardHeight - 60;
             canvas.width = canvasWidth;
