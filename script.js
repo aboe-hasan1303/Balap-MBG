@@ -104,6 +104,17 @@
         // Tampilkan highscore jika ada elemennya (opsional)
         const highscoreElem = document.getElementById('highscore');
         if (highscoreElem) highscoreElem.innerText = highscore;
+
+        // ========== AUDIO & CRASH TEXT ==========
+let crashAudio = null;
+try {
+    crashAudio = new Audio('assets/hidup-jokowi.mp3');
+    crashAudio.preload = 'auto';
+} catch(e) { console.warn("Audio not supported"); }
+let crashText = '';
+let crashTextTimer = 0;
+const crashTextPhrase = 'HIDUP JOKOWI !';
+
         
         // Game Variables
         let score = 0;
@@ -114,6 +125,7 @@
         let frameCount = 0;
         let enemiesPassed = 0;
         let animationId = null;
+        let crashAudio = null;
         
         // LIVES SYSTEM
         let lives = 3;
@@ -413,34 +425,45 @@
         }
         
         // ========== ACCIDENT & RESPAWN ==========
+ 
         function handleAccident(colliderName = '') {
-            if (shieldActive) return false;
-            if (invincibleFrames > 0) return false;
-            if (isRespawning) return false;
-            
-            lives--;
-            updateUI();
-            
-            lastAccidentX = player.x;
-            lastAccidentY = player.y;
-            accidentDisplayTimer = 30;
-            showExplosion(player.x, player.y);
-            
-            if (lives <= 0) {
-                gameRunning = false;
-                setTimeout(() => {
-                    alert(`💥 GAME OVER!\nSkor akhir: ${Math.floor(score)}\nMusuh dilewati: ${enemiesPassed}`);
-                    showStartOverlay();
-                }, 500);
-                return true;
-            }
-            
-            isRespawning = true;
-            respawnTimer = 45;
-            invincibleFrames = 90;
-            
-            return false;
-        }
+    if (shieldActive) return false;
+    if (invincibleFrames > 0) return false;
+    if (isRespawning) return false;
+    
+    lives--;
+    updateUI();
+    
+    lastAccidentX = player.x;
+    lastAccidentY = player.y;
+    accidentDisplayTimer = 30;
+    showExplosion(player.x, player.y);
+    
+    // ========== BALON TEKS ==========
+    crashText = crashTextPhrase;  // 'HIDUP JOKOWI !'
+    crashTextTimer = 45;          // tampil 0.75 detik
+    
+    // ========== PUTAR AUDIO ==========
+    if (crashAudio) {
+        crashAudio.currentTime = 0;  // reset ke awal
+        crashAudio.play().catch(e => console.log('Audio play error:', e));
+    }
+    
+    if (lives <= 0) {
+        gameRunning = false;
+        setTimeout(() => {
+            alert(`💥 GAME OVER!\nSkor akhir: ${Math.floor(score)}\nMusuh dilewati: ${enemiesPassed}`);
+            showStartOverlay();
+        }, 500);
+        return true;
+    }
+    
+    isRespawning = true;
+    respawnTimer = 45;
+    invincibleFrames = 90;
+    
+    return false;
+}
         
         function doRespawn() {
             player.x = canvasWidth / 2 - player.width / 2;
