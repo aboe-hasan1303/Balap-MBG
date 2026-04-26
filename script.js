@@ -630,39 +630,48 @@
         }
         
         function drawRoad() {
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
-            gradient.addColorStop(0, '#2C3E50');
-            gradient.addColorStop(1, '#1a252f');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-            
-            ctx.strokeStyle = '#F1C40F';
-            ctx.lineWidth = Math.max(4, canvasWidth * 0.01);
-            ctx.setLineDash([canvasWidth * 0.06, canvasWidth * 0.08]);
-            ctx.beginPath();
-            ctx.moveTo(canvasWidth / 2, 0);
-            ctx.lineTo(canvasWidth / 2, canvasHeight);
-            ctx.stroke();
-            
-            ctx.setLineDash([15, 30]);
-            ctx.lineWidth = Math.max(2, canvasWidth * 0.005);
-            ctx.strokeStyle = '#FFF';
-            for (let i = -50; i < canvasHeight; i += 60) {
-                ctx.beginPath();
-                ctx.moveTo(canvasWidth * 0.05, i + roadOffset);
-                ctx.lineTo(canvasWidth * 0.05, i + 40 + roadOffset);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(canvasWidth * 0.95, i + roadOffset);
-                ctx.lineTo(canvasWidth * 0.95, i + 40 + roadOffset);
-                ctx.stroke();
-            }
-            
-            ctx.setLineDash([]);
-            ctx.strokeStyle = '#95A5A6';
-            ctx.lineWidth = 3;
-            ctx.strokeRect(canvasWidth * 0.03, 0, canvasWidth * 0.94, canvasHeight);
-        }
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
+    gradient.addColorStop(0, '#2C3E50');
+    gradient.addColorStop(1, '#1a252f');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    
+    // ========== GARIS KUNING PUTUS-PUTUS DI TENGAH (BERGERAK) ==========
+    ctx.strokeStyle = '#F1C40F';
+    ctx.lineWidth = Math.max(4, canvasWidth * 0.01);
+    ctx.setLineDash([canvasWidth * 0.06, canvasWidth * 0.08]);
+    
+    for (let i = -50; i < canvasHeight + 50; i += 60) {
+        ctx.beginPath();
+        ctx.moveTo(canvasWidth / 2, i + roadOffset);
+        ctx.lineTo(canvasWidth / 2, i + 40 + roadOffset);
+        ctx.stroke();
+    }
+    
+    // ========== GARIS PUTIH DI TEPI KIRI (BERGERAK) ==========
+    ctx.setLineDash([15, 30]);
+    ctx.lineWidth = Math.max(2, canvasWidth * 0.005);
+    ctx.strokeStyle = '#FFF';
+    
+    for (let i = -50; i < canvasHeight + 50; i += 60) {
+        ctx.beginPath();
+        ctx.moveTo(canvasWidth * 0.05, i + roadOffset);
+        ctx.lineTo(canvasWidth * 0.05, i + 40 + roadOffset);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(canvasWidth * 0.95, i + roadOffset);
+        ctx.lineTo(canvasWidth * 0.95, i + 40 + roadOffset);
+        ctx.stroke();
+    }
+    
+    ctx.setLineDash([]);
+    
+    // ========== GARIS TEPI JALAN ==========
+    ctx.strokeStyle = '#95A5A6';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(canvasWidth * 0.03, 0, canvasWidth * 0.94, canvasHeight);
+}
         
         // ========== GAME UPDATE ==========
         function update() {
