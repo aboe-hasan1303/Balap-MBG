@@ -15,7 +15,7 @@
         enemyMarinir: 'assets/marinir.png',
         enemyPolantas: 'assets/polantas.png',
         enemySabhara: 'assets/sabhara.png',
-        stone: 'assets/pile-of-rocks.png',
+        stone: 'assets/sawit.png',
         heart: 'assets/heart.png',
         shield: 'assets/shield-protection.png'
     };
