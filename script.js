@@ -248,7 +248,7 @@
             const enemyTypesList = [
                 { name: 'BGN', image: gameImages.enemyBgn, color: '#555', agresif: false, speedBonus: 1, points: 10, customWidth: 65, customHeight: 60 },
                 { name: 'DAMKAR', image: gameImages.enemyDamkar, color: '#E74C3C', agresif: true, speedBonus: 1.25, points: 20, customWidth: 80, customHeight: 75 },
-                { name: 'MARINIR', image: gameImages.enemyMarinir, color: '#27AE60', agresif: false, speedBonus: 1, points: 15, customWidth: 250, customHeight: 200 },
+                { name: 'MARINIR', image: gameImages.enemyMarinir, color: '#27AE60', agresif: false, speedBonus: 1, points: 15, customWidth: 120, customHeight: 100 },
                 { name: 'POLANTAS', image: gameImages.enemyPolantas, color: '#3498DB', agresif: false, speedBonus: 1, points: 15, customWidth: 60, customHeight: 65 },
                 { name: 'SABHARA', image: gameImages.enemySabhara, color: '#F39C12', agresif: false, speedBonus: 1, points: 12, customWidth: 65, customHeight: 62 }
             ];
