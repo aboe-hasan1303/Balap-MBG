@@ -630,47 +630,50 @@
         }
         
         function drawRoad() {
+    // ========== ASPAL ==========
     const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
     gradient.addColorStop(0, '#2C3E50');
     gradient.addColorStop(1, '#1a252f');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     
-    // ========== GARIS KUNING PUTUS-PUTUS DI TENGAH (BERGERAK) ==========
+    // ========== GARIS KUNING PUTUS-PUTUS DI TENGAH (BERGERAK KE BAWAH) ==========
     ctx.strokeStyle = '#F1C40F';
-    ctx.lineWidth = Math.max(4, canvasWidth * 0.01);
-    ctx.setLineDash([canvasWidth * 0.06, canvasWidth * 0.08]);
+    ctx.lineWidth = Math.max(5, canvasWidth * 0.012);
+    ctx.setLineDash([canvasWidth * 0.07, canvasWidth * 0.09]);
     
-    for (let i = -50; i < canvasHeight + 50; i += 60) {
+    // Loop untuk membuat garis putus-putus bergerak
+    for (let y = -50; y < canvasHeight + 50; y += 55) {
         ctx.beginPath();
-        ctx.moveTo(canvasWidth / 2, i + roadOffset);
-        ctx.lineTo(canvasWidth / 2, i + 40 + roadOffset);
+        ctx.moveTo(canvasWidth / 2, y + roadOffset);
+        ctx.lineTo(canvasWidth / 2, y + 35 + roadOffset);
         ctx.stroke();
     }
     
     // ========== GARIS PUTIH DI TEPI KIRI (BERGERAK) ==========
     ctx.setLineDash([15, 30]);
-    ctx.lineWidth = Math.max(2, canvasWidth * 0.005);
-    ctx.strokeStyle = '#FFF';
+    ctx.lineWidth = Math.max(3, canvasWidth * 0.007);
+    ctx.strokeStyle = '#FFFFFF';
     
-    for (let i = -50; i < canvasHeight + 50; i += 60) {
+    for (let y = -50; y < canvasHeight + 50; y += 60) {
         ctx.beginPath();
-        ctx.moveTo(canvasWidth * 0.05, i + roadOffset);
-        ctx.lineTo(canvasWidth * 0.05, i + 40 + roadOffset);
+        ctx.moveTo(canvasWidth * 0.05, y + roadOffset);
+        ctx.lineTo(canvasWidth * 0.05, y + 40 + roadOffset);
         ctx.stroke();
         
         ctx.beginPath();
-        ctx.moveTo(canvasWidth * 0.95, i + roadOffset);
-        ctx.lineTo(canvasWidth * 0.95, i + 40 + roadOffset);
+        ctx.moveTo(canvasWidth * 0.95, y + roadOffset);
+        ctx.lineTo(canvasWidth * 0.95, y + 40 + roadOffset);
         ctx.stroke();
     }
     
+    // Reset line dash
     ctx.setLineDash([]);
     
-    // ========== GARIS TEPI JALAN ==========
+    // ========== GARIS TEPI JALAN (STATIS) ==========
     ctx.strokeStyle = '#95A5A6';
     ctx.lineWidth = 3;
-    ctx.strokeRect(canvasWidth * 0.03, 0, canvasWidth * 0.94, canvasHeight);
+    ctx.strokeRect(canvasWidth * 0.04, 0, canvasWidth * 0.92, canvasHeight);
 }
         
         // ========== GAME UPDATE ==========
